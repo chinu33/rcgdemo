@@ -1,0 +1,13 @@
+{
+  "stores": [
+    {"id": "ST-014", "name": "Northbrook Flagship", "city": "Chicago, IL", "lat": 42.13, "lon": -87.83, "format": "Supercenter", "sqft": 185000, "manager": "Priya Nair"},
+    {"id": "ST-027", "name": "Buckhead Market", "city": "Atlanta, GA", "lat": 33.84, "lon": -84.37, "format": "Urban", "sqft": 42000, "manager": "Marcus Bell"},
+    {"id": "ST-031", "name": "Tampa Bayshore", "city": "Tampa, FL", "lat": 27.94, "lon": -82.46, "format": "Standard", "sqft": 96000, "manager": "Elena Rodriguez"},
+    {"id": "ST-042", "name": "Long Beach Harbor", "city": "Long Beach, CA", "lat": 33.77, "lon": -118.19, "format": "Standard", "sqft": 102000, "manager": "Jason Park"},
+    {"id": "ST-058", "name": "Plano Legacy", "city": "Plano, TX", "lat": 33.07, "lon": -96.76, "format": "Supercenter", "sqft": 178000, "manager": "Aisha Mohammed"},
+    {"id": "ST-061", "name": "Charlotte Southpark", "city": "Charlotte, NC", "lat": 35.15, "lon": -80.83, "format": "Standard", "sqft": 98000, "manager": "Devon Wright"},
+    {"id": "ST-073", "name": "Seattle Ballard", "city": "Seattle, WA", "lat": 47.67, "lon": -122.38, "format": "Urban", "sqft": 38000, "manager": "Hana Kim"},
+    {"id": "ST-089", "name": "Denver Cherry Creek", "city": "Denver, CO", "lat": 39.71, "lon": -104.95, "format": "Standard", "sqft": 88000, "manager": "Tomás Reyes"}
+  ],
+  "current_store_id": "ST-014"
+}

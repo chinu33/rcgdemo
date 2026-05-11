@@ -1,0 +1,66 @@
+/* Glass morphism primitives */
+
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  border-radius: 18px;
+  box-shadow: var(--glass-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0));
+  pointer-events: none;
+}
+
+.glass-soft {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-radius: 12px;
+}
+
+.card {
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+}
+
+.card-head h3 {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(124, 92, 255, 0.18);
+  color: var(--accent-1);
+  border: 1px solid rgba(124, 92, 255, 0.28);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.badge.green { background: rgba(52, 211, 153, 0.16); color: var(--accent-good); border-color: rgba(52, 211, 153, 0.32); }
+.badge.red   { background: rgba(239, 68, 68, 0.16); color: var(--accent-bad); border-color: rgba(239, 68, 68, 0.32); }
+.badge.warm  { background: rgba(245, 158, 11, 0.16); color: var(--accent-warm); border-color: rgba(245, 158, 11, 0.32); }

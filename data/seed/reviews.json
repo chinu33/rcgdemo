@@ -1,0 +1,25 @@
+{
+  "store_id": "ST-014",
+  "summary": {
+    "rating_today": 3.6,
+    "rating_30d": 4.2,
+    "review_count_today": 47,
+    "review_count_30d": 1284,
+    "sentiment_score": -0.18,
+    "trend": "down"
+  },
+  "themes": [
+    {"theme": "Empty dairy shelves", "mentions": 23, "sentiment": "negative", "delta_vs_30d": "+1100%"},
+    {"theme": "Long checkout lines", "mentions": 18, "sentiment": "negative", "delta_vs_30d": "+220%"},
+    {"theme": "Friendly staff", "mentions": 14, "sentiment": "positive", "delta_vs_30d": "stable"},
+    {"theme": "Floral display", "mentions": 9, "sentiment": "positive", "delta_vs_30d": "+340%"},
+    {"theme": "Self-checkout broken", "mentions": 6, "sentiment": "negative", "delta_vs_30d": "+80%"}
+  ],
+  "recent": [
+    {"author": "Sarah K.", "rating": 2, "time": "2026-05-06T09:14", "text": "Came in for yogurt and milk — entire dairy section was empty. Third time this month. Going to Kroger from now on."},
+    {"author": "David M.", "rating": 3, "time": "2026-05-06T08:42", "text": "Great floral selection for Mother's Day but checkout was a 20 min wait. Only 3 lanes open."},
+    {"author": "Priya R.", "rating": 5, "time": "2026-05-06T07:55", "text": "Janet at customer service was incredible — helped me find a substitute when my usual brand was out."},
+    {"author": "Mike T.", "rating": 1, "time": "2026-05-05T19:32", "text": "No Chobani, no Fairlife, no Horizon. What is going on with dairy lately?"},
+    {"author": "Linda B.", "rating": 4, "time": "2026-05-05T15:10", "text": "Memorial Day TV deals look great. Wish electronics had more staff to answer questions."}
+  ]
+}

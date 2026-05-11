@@ -1,0 +1,208 @@
+/* PULSE — custom dark theme overrides for Slidev */
+
+:root {
+  --pulse-bg-base: #07091a;
+  --pulse-text: #ecf0ff;
+  --pulse-text-secondary: #b9c0e0;
+  --pulse-text-muted: #7884b0;
+  --pulse-accent-1: #7c5cff;
+  --pulse-accent-2: #22d3ee;
+  --pulse-accent-3: #ec4899;
+  --pulse-accent-warm: #f59e0b;
+  --pulse-accent-good: #34d399;
+  --pulse-accent-bad: #ef4444;
+  --pulse-glass-bg: rgba(22, 26, 56, 0.42);
+  --pulse-glass-border: rgba(255, 255, 255, 0.10);
+  --pulse-glass-border-strong: rgba(255, 255, 255, 0.18);
+}
+
+/* Body / slides — dark background with aurora */
+.slidev-layout {
+  background: var(--pulse-bg-base) !important;
+  color: var(--pulse-text);
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.slidev-layout::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 720px 540px at 18% 28%, rgba(124, 92, 255, 0.30), transparent 60%),
+    radial-gradient(ellipse 640px 480px at 82% 72%, rgba(34, 211, 238, 0.22), transparent 60%),
+    radial-gradient(ellipse 520px 420px at 60% 110%, rgba(217, 70, 239, 0.16), transparent 60%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+  animation: pulse-drift 22s ease-in-out infinite;
+}
+
+.slidev-layout::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(124, 92, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 92, 255, 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.slidev-layout > * { position: relative; z-index: 1; }
+
+@keyframes pulse-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.85; }
+  50% { transform: translate(2%, -1%) scale(1.06); opacity: 1; }
+}
+
+/* Headings */
+.slidev-layout h1 {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ecf0ff 0%, #7c5cff 50%, #22d3ee 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 6px 28px rgba(124, 92, 255, 0.32));
+}
+.slidev-layout h2 {
+  color: var(--pulse-text);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.slidev-layout h3 {
+  color: var(--pulse-accent-2);
+  font-weight: 600;
+}
+
+/* Lists, code, strong */
+.slidev-layout li {
+  color: var(--pulse-text);
+  margin-bottom: 6px;
+}
+.slidev-layout strong { color: #fff; font-weight: 700; }
+.slidev-layout em { color: var(--pulse-accent-2); font-style: normal; }
+.slidev-layout code:not(pre code) {
+  background: rgba(124, 92, 255, 0.18);
+  color: var(--pulse-accent-2);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.92em;
+  font-family: 'JetBrains Mono', 'SF Mono', monospace;
+}
+
+/* Code blocks */
+.slidev-layout pre {
+  background: rgba(12, 16, 36, 0.72) !important;
+  border: 1px solid var(--pulse-glass-border-strong);
+  border-radius: 10px;
+  backdrop-filter: blur(18px);
+}
+
+/* Reusable PULSE chips & cards */
+.pulse-eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.pulse-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--pulse-glass-bg);
+  border: 1px solid var(--pulse-glass-border-strong);
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--pulse-text-secondary);
+  backdrop-filter: blur(18px);
+}
+.pulse-pill .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  display: inline-block;
+}
+.pulse-pill .dot.purple { background: var(--pulse-accent-1); box-shadow: 0 0 8px var(--pulse-accent-1); }
+.pulse-pill .dot.amber  { background: var(--pulse-accent-warm); box-shadow: 0 0 8px var(--pulse-accent-warm); }
+.pulse-pill .dot.cyan   { background: var(--pulse-accent-2); box-shadow: 0 0 8px var(--pulse-accent-2); }
+.pulse-pill .dot.green  { background: var(--pulse-accent-good); box-shadow: 0 0 8px var(--pulse-accent-good); }
+
+.pulse-card {
+  padding: 16px 18px;
+  background: var(--pulse-glass-bg);
+  border: 1px solid var(--pulse-glass-border-strong);
+  border-radius: 14px;
+  backdrop-filter: blur(20px);
+}
+
+.pulse-grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.pulse-step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--pulse-glass-bg);
+  border: 1px solid var(--pulse-glass-border-strong);
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+.pulse-step-num {
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--pulse-accent-1), var(--pulse-accent-2));
+  color: white;
+  font-weight: 700;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.pulse-arch-row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 16px;
+  background: var(--pulse-glass-bg);
+  border: 1px solid var(--pulse-glass-border-strong);
+  border-radius: 12px;
+  margin-bottom: 6px;
+}
+.pulse-arch-row.mcp {
+  border-color: rgba(245, 158, 11, 0.5);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.10), rgba(124, 92, 255, 0.04));
+}
+.pulse-arch-icon { font-size: 22px; flex-shrink: 0; }
+.pulse-arch-title { font-size: 14px; font-weight: 700; }
+.pulse-arch-sub { font-size: 12px; color: var(--pulse-text-secondary); }
+
+.pulse-num {
+  font-size: 1.4em;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--pulse-accent-warm), var(--pulse-accent-3));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Nav controls override (Slidev's defaults are too bright on dark) */
+.slidev-controls button {
+  color: var(--pulse-text-secondary) !important;
+}
+.slidev-controls button:hover {
+  color: var(--pulse-text) !important;
+}
+
+/* Page numbers, footer, etc. */
+.slidev-page-number {
+  color: var(--pulse-text-muted) !important;
+}

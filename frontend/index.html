@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PULSE · Multi-Agent Command Center</title>
+  <link rel="stylesheet" href="/static/css/base.css" />
+  <link rel="stylesheet" href="/static/css/themes.css" />
+  <link rel="stylesheet" href="/static/css/glass.css" />
+  <link rel="stylesheet" href="/static/css/components.css" />
+  <link rel="stylesheet" href="/static/css/animations.css" />
+  <link rel="stylesheet" href="/static/css/pitch.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body class="app-booting">
+
+  <!-- Splash / landing screen -->
+  <div class="splash" id="splash">
+    <div class="splash-bg" aria-hidden="true"></div>
+    <div class="splash-content">
+      <div class="splash-mark">
+        <svg viewBox="0 0 40 40" width="64" height="64" aria-hidden="true">
+          <defs>
+            <linearGradient id="splashRing" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#7c5cff"/>
+              <stop offset="100%" stop-color="#22d3ee"/>
+            </linearGradient>
+            <radialGradient id="splashCore" cx="0.5" cy="0.5" r="0.6">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+              <stop offset="45%" stop-color="#22d3ee" stop-opacity="0.8"/>
+              <stop offset="100%" stop-color="#7c5cff" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <circle cx="20" cy="20" r="16" fill="none" stroke="url(#splashRing)" stroke-width="1.3" opacity="0.55">
+            <animate attributeName="r" values="14;18;14" dur="2.4s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.65;0;0.65" dur="2.4s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="20" cy="20" r="11" fill="none" stroke="url(#splashRing)" stroke-width="1.4" opacity="0.85"/>
+          <circle cx="20" cy="20" r="7" fill="url(#splashCore)">
+            <animate attributeName="r" values="6;8;6" dur="1.6s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="20" cy="20" r="2" fill="#ffffff"/>
+          <circle cx="20" cy="3" r="1.5" fill="#7c5cff"/>
+          <circle cx="37" cy="20" r="1.5" fill="#22d3ee"/>
+          <circle cx="20" cy="37" r="1.5" fill="#ec4899"/>
+          <circle cx="3" cy="20" r="1.5" fill="#34d399"/>
+        </svg>
+      </div>
+      <div class="splash-title">PULSE</div>
+      <div class="splash-sub">Multi-Agent Command Center for Retail &amp; Consumer Goods</div>
+      <div class="splash-progress"><div class="splash-bar"></div></div>
+      <div class="splash-status" id="splash-status">Booting agents…</div>
+    </div>
+  </div>
+
+  <!-- Animated background -->
+  <div class="bg-aurora" aria-hidden="true">
+    <div class="aurora-blob blob-1"></div>
+    <div class="aurora-blob blob-2"></div>
+    <div class="aurora-blob blob-3"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <!-- Top nav -->
+  <header class="topbar glass">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 40 40" width="32" height="32" aria-hidden="true">
+          <defs>
+            <linearGradient id="pulseRing" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#7c5cff"/>
+              <stop offset="100%" stop-color="#22d3ee"/>
+            </linearGradient>
+            <radialGradient id="pulseCore" cx="0.5" cy="0.5" r="0.6">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+              <stop offset="45%" stop-color="#22d3ee" stop-opacity="0.8"/>
+              <stop offset="100%" stop-color="#7c5cff" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <!-- Outer pulsing ring -->
+          <circle cx="20" cy="20" r="16" fill="none" stroke="url(#pulseRing)" stroke-width="1.3" opacity="0.55">
+            <animate attributeName="r" values="14;18;14" dur="2.4s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.65;0;0.65" dur="2.4s" repeatCount="indefinite"/>
+          </circle>
+          <!-- Mid ring -->
+          <circle cx="20" cy="20" r="11" fill="none" stroke="url(#pulseRing)" stroke-width="1.4" opacity="0.85"/>
+          <!-- Glowing core -->
+          <circle cx="20" cy="20" r="7" fill="url(#pulseCore)">
+            <animate attributeName="r" values="6;8;6" dur="1.6s" repeatCount="indefinite"/>
+          </circle>
+          <!-- Center bright dot -->
+          <circle cx="20" cy="20" r="2" fill="#ffffff"/>
+          <!-- 4 agent satellites -->
+          <circle cx="20" cy="3" r="1.5" fill="#7c5cff"/>
+          <circle cx="37" cy="20" r="1.5" fill="#22d3ee"/>
+          <circle cx="20" cy="37" r="1.5" fill="#ec4899"/>
+          <circle cx="3" cy="20" r="1.5" fill="#34d399"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="brand-title">PULSE</div>
+        <div class="brand-sub">Multi-Agent · <span id="store-name">Loading…</span></div>
+      </div>
+    </div>
+
+    <nav class="tabs">
+      <button class="tab" data-tab="pitch">Pitch</button>
+      <button class="tab active" data-tab="dashboard">Dashboard</button>
+      <button class="tab" data-tab="store-manager">Store Manager</button>
+      <button class="tab" data-tab="war-room">War Room</button>
+      <button class="tab" data-tab="mcp">MCP Tools</button>
+      <button class="tab" data-tab="analytics">Analytics</button>
+    </nav>
+
+    <div class="topbar-right">
+      <div class="status-chip" id="model-chip" title="LLM model">
+        <span class="dot"></span><span id="model-label">…</span>
+      </div>
+      <button class="theme-toggle glass-soft" id="theme-toggle" title="Toggle theme">
+        <svg id="theme-icon-dark" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
+        <svg id="theme-icon-light" viewBox="0 0 24 24" width="18" height="18" style="display:none"><path fill="currentColor" d="M12 4V2m0 20v-2m8-8h2M2 12h2m13.66-6.66 1.41-1.41M4.93 19.07l1.41-1.41m0-12.72L4.93 4.93m14.14 14.14-1.41-1.41M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Telemetry pill (floating) -->
+  <div class="telemetry-pill glass" id="telemetry-pill" hidden>
+    <div class="pill-status">
+      <span class="pulse-dot"></span><span id="pill-status">Idle</span>
+    </div>
+    <div class="pill-divider"></div>
+    <div class="pill-metric"><span class="pill-icon">⚡</span><span id="pill-latency">0</span><span class="pill-unit">ms</span></div>
+    <div class="pill-divider"></div>
+    <div class="pill-metric"><span class="pill-icon">🜨</span><span id="pill-tokens">0</span><span class="pill-unit">tok</span></div>
+    <div class="pill-divider"></div>
+    <div class="pill-metric"><span class="pill-icon">$</span><span id="pill-cost">0.0000</span></div>
+    <div class="pill-divider"></div>
+    <div class="pill-metric pill-agents"><span class="pill-icon">⚙</span><span id="pill-agents">0</span><span class="pill-unit">agents</span></div>
+  </div>
+
+  <main class="content">
+
+    <!-- ========== PITCH ========== -->
+    <section class="panel" id="panel-pitch">
+      <div class="pitch-stage">
+
+        <!-- Slide 1 — Cover (title, author, date) -->
+        <div class="pslide active" data-slide="1">
+          <div class="pslide-aurora"></div>
+          <div class="pslide-content slide-cover">
+            <div class="cover-grid">
+              <div class="cover-left">
+                <div class="cover-mark">
+                  <svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true">
+                    <defs>
+                      <linearGradient id="coverRing" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#7c5cff"/>
+                        <stop offset="100%" stop-color="#22d3ee"/>
+                      </linearGradient>
+                      <radialGradient id="coverCore" cx="0.5" cy="0.5" r="0.6">
+                        <stop offset="0%" stop-color="#fff" stop-opacity="1"/>
+                        <stop offset="45%" stop-color="#22d3ee" stop-opacity="0.8"/>
+                        <stop offset="100%" stop-color="#7c5cff" stop-opacity="0"/>
+                      </radialGradient>
+                    </defs>
+                    <circle cx="20" cy="20" r="16" fill="none" stroke="url(#coverRing)" stroke-width="1.3" opacity="0.55">
+                      <animate attributeName="r" values="14;18;14" dur="2.4s" repeatCount="indefinite"/>
+                      <animate attributeName="opacity" values="0.65;0;0.65" dur="2.4s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="20" cy="20" r="11" fill="none" stroke="url(#coverRing)" stroke-width="1.4" opacity="0.85"/>
+                    <circle cx="20" cy="20" r="7" fill="url(#coverCore)">
+                      <animate attributeName="r" values="6;8;6" dur="1.6s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="20" cy="20" r="2" fill="#fff"/>
+                    <circle cx="20" cy="3" r="1.5" fill="#7c5cff"/>
+                    <circle cx="37" cy="20" r="1.5" fill="#22d3ee"/>
+                    <circle cx="20" cy="37" r="1.5" fill="#ec4899"/>
+                    <circle cx="3" cy="20" r="1.5" fill="#34d399"/>
+                  </svg>
+                  <div class="cover-mark-text">PULSE</div>
+                </div>
+                <div class="cover-spacer"></div>
+                <h1 class="cover-title">Multi-Agent Command Center<br/>for <em>Retail &amp; Consumer Goods</em></h1>
+                <div class="cover-tagline">A working blueprint for production multi-agent AI in RCG operations.</div>
+                <div class="cover-spacer-grow"></div>
+                <div class="cover-meta">
+                  <div class="cover-author">Chinmoy Chakraborty</div>
+                  <div class="cover-date">May 2026</div>
+                </div>
+              </div>
+              <div class="cover-visual" aria-hidden="true">
+                <svg viewBox="0 0 400 400" class="cover-orbit">
+                  <defs>
+                    <linearGradient id="orbitRing" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#7c5cff"/>
+                      <stop offset="100%" stop-color="#22d3ee"/>
+                    </linearGradient>
+                    <radialGradient id="orbitCore" cx="0.5" cy="0.5" r="0.55">
+                      <stop offset="0%" stop-color="#fff" stop-opacity="1"/>
+                      <stop offset="40%" stop-color="#22d3ee" stop-opacity="0.85"/>
+                      <stop offset="100%" stop-color="#7c5cff" stop-opacity="0"/>
+                    </radialGradient>
+                  </defs>
+                  <!-- Outermost pulsing ring -->
+                  <circle cx="200" cy="200" r="170" fill="none" stroke="url(#orbitRing)" stroke-width="1" opacity="0.18">
+                    <animate attributeName="r" values="160;180;160" dur="3.2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0.22;0.04;0.22" dur="3.2s" repeatCount="indefinite"/>
+                  </circle>
+                  <!-- Middle ring (with rotating dashes) -->
+                  <circle cx="200" cy="200" r="140" fill="none" stroke="url(#orbitRing)" stroke-width="1.2" stroke-dasharray="8 14" opacity="0.4">
+                    <animateTransform attributeName="transform" type="rotate" from="0 200 200" to="360 200 200" dur="38s" repeatCount="indefinite"/>
+                  </circle>
+                  <!-- Inner ring (counter-rotating) -->
+                  <circle cx="200" cy="200" r="100" fill="none" stroke="url(#orbitRing)" stroke-width="1.4" stroke-dasharray="3 9" opacity="0.55">
+                    <animateTransform attributeName="transform" type="rotate" from="360 200 200" to="0 200 200" dur="22s" repeatCount="indefinite"/>
+                  </circle>
+                  <!-- Orbiting agent dots on the middle ring -->
+                  <g>
+                    <animateTransform attributeName="transform" type="rotate" from="0 200 200" to="360 200 200" dur="18s" repeatCount="indefinite"/>
+                    <circle cx="200" cy="60"  r="6" fill="#7c5cff"/>
+                    <circle cx="335" cy="200" r="6" fill="#22d3ee"/>
+                    <circle cx="200" cy="340" r="6" fill="#ec4899"/>
+                    <circle cx="65"  cy="200" r="6" fill="#34d399"/>
+                    <circle cx="299" cy="98"  r="5" fill="#f59e0b"/>
+                  </g>
+                  <!-- Glowing core -->
+                  <circle cx="200" cy="200" r="60" fill="url(#orbitCore)">
+                    <animate attributeName="r" values="55;72;55" dur="2.6s" repeatCount="indefinite"/>
+                  </circle>
+                  <!-- Bright center -->
+                  <circle cx="200" cy="200" r="14" fill="#fff" opacity="0.95"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 — Agenda -->
+        <div class="pslide" data-slide="2">
+          <div class="pslide-content slide-agenda">
+            <div class="agenda-head">
+              <div class="agenda-eyebrow">AGENDA</div>
+              <h2 class="agenda-title">What we'll cover</h2>
+              <div class="agenda-sub">Six chapters · ~15 minutes · followed by a live demo</div>
+            </div>
+            <div class="agenda-list">
+              <div class="agenda-row" data-row="1">
+                <div class="agenda-num">01</div>
+                <div class="agenda-text">
+                  <div class="agenda-row-title">PULSE Overview</div>
+                  <div class="agenda-row-sub">Multi-agent intelligence for Retail &amp; CG, at a glance</div>
+                </div>
+                <div class="agenda-icon">✨</div>
+              </div>
+              <div class="agenda-row" data-row="2">
+                <div class="agenda-num">02</div>
+                <div class="agenda-text">
+                  <div class="agenda-row-title">The Problem</div>
+                  <div class="agenda-row-sub">$112B/yr leakage · 12 dashboards · siloed systems · slow disruption response</div>
+                </div>
+                <div class="agenda-icon">🏬</div>
+              </div>
+              <div class="agenda-row" data-row="3">
+                <div class="agenda-num">03</div>
+                <div class="agenda-text">
+                  <div class="agenda-row-title">The Solution</div>
+                  <div class="agenda-row-sub">An agent network that thinks together · MCP-backed · streaming · observable</div>
+                </div>
+                <div class="agenda-icon">✅</div>
+              </div>
+              <div class="agenda-row" data-row="4">
+                <div class="agenda-num">04</div>
+                <div class="agenda-text">
+                  <div class="agenda-row-title">How It Works</div>
+                  <div class="agenda-row-sub">9-step end-to-end workflow from question to action</div>
+                </div>
+                <div class="agenda-icon">🛠</div>
+              </div>
+              <div class="agenda-row" data-row="5">
+                <div class="agenda-num">05</div>
+                <div class="agenda-text">
+                  <div class="agenda-row-title">Architecture</div>
+                  <div class="agenda-row-sub">Standards-based production stack: FastAPI · LangGraph · MCP · SQLite</div>
+                </div>
+                <div class="agenda-icon">⚙</div>
+              </div>
+              <div class="agenda-row demo" data-row="6">
+                <div class="agenda-num">06</div>
+                <div class="agenda-text">
+                  <div class="agenda-row-title">Live Demo</div>
+                  <div class="agenda-row-sub">Watch the agents actually do it &mdash; Store Manager &amp; War Room</div>
+                </div>
+                <div class="agenda-icon">▶</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 — Overview -->
+        <div class="pslide" data-slide="3">
+          <div class="pslide-aurora"></div>
+          <div class="pslide-content slide-overview">
+            <div class="ovr-eyebrow">INTRODUCING</div>
+            <h1 class="ovr-title">PULSE</h1>
+            <div class="ovr-tagline">Multi-Agent Command Center for <em>Retail &amp; Consumer Goods</em></div>
+            <div class="ovr-meta">
+              <span class="meta-pill"><span class="dot purple"></span>Multi-agent</span>
+              <span class="meta-pill"><span class="dot amber"></span>MCP-backed</span>
+              <span class="meta-pill"><span class="dot cyan"></span>Streaming</span>
+              <span class="meta-pill"><span class="dot green"></span>Observable</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4 — Problem -->
+        <div class="pslide" data-slide="4">
+          <div class="pslide-content slide-problem">
+            <div class="prob-eyebrow">THE STATUS QUO</div>
+            <h2 class="prob-title">Retail operations are losing <span class="prob-num">$<span data-count-to="112">0</span>B</span> a year</h2>
+            <div class="prob-grid">
+              <div class="pain-card" data-delay="120">
+                <div class="pain-card-top">
+                  <span class="pain-seq">01</span>
+                  <span class="pain-icon">📊</span>
+                </div>
+                <div class="pain-title">12+ dashboards every morning</div>
+                <div class="pain-desc">Store managers drown in fragmented data sources before 9 AM</div>
+              </div>
+              <div class="pain-card" data-delay="240">
+                <div class="pain-card-top">
+                  <span class="pain-seq">02</span>
+                  <span class="pain-icon">🌪</span>
+                </div>
+                <div class="pain-title">Disruption response is manual</div>
+                <div class="pain-desc">Hours of war-rooming for every weather, port, or supplier event</div>
+              </div>
+              <div class="pain-card" data-delay="360">
+                <div class="pain-card-top">
+                  <span class="pain-seq">03</span>
+                  <span class="pain-icon">🔌</span>
+                </div>
+                <div class="pain-title">Siloed systems</div>
+                <div class="pain-desc">POS, WMS, HRIS, promos, reviews — none talk to each other</div>
+              </div>
+              <div class="pain-card" data-delay="480">
+                <div class="pain-card-top">
+                  <span class="pain-seq">04</span>
+                  <span class="pain-icon">⏱</span>
+                </div>
+                <div class="pain-title">Decisions take hours</div>
+                <div class="pain-desc">Markdown, replenishment, and transfer choices arrive too late</div>
+              </div>
+              <div class="pain-card" data-delay="600">
+                <div class="pain-card-top">
+                  <span class="pain-seq">05</span>
+                  <span class="pain-icon">🤖</span>
+                </div>
+                <div class="pain-title">LLM pilots stall</div>
+                <div class="pain-desc">No clean tool boundary, no audit trail, no observability</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 5 — Solution -->
+        <div class="pslide" data-slide="5">
+          <div class="pslide-content slide-solution">
+            <div class="sol-eyebrow">THE SOLUTION</div>
+            <h2 class="sol-title">An agent network that <em>thinks together</em></h2>
+            <div class="sol-network">
+              <svg id="solution-network-svg" viewBox="0 0 880 360" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                  <linearGradient id="netGradOrch" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0" stop-color="#7c5cff"/><stop offset="1" stop-color="#22d3ee"/>
+                  </linearGradient>
+                  <filter id="netGlow"><feGaussianBlur stdDeviation="3"/></filter>
+                </defs>
+                <!-- Edges (drawn first so nodes render on top) -->
+                <g class="net-edges">
+                  <path class="net-edge" d="M 130 180 C 220 180, 280 80, 400 80"/>
+                  <path class="net-edge" d="M 130 180 C 220 180, 280 130, 400 130"/>
+                  <path class="net-edge" d="M 130 180 C 220 180, 280 180, 400 180"/>
+                  <path class="net-edge" d="M 130 180 C 220 180, 280 230, 400 230"/>
+                  <path class="net-edge" d="M 130 180 C 220 180, 280 280, 400 280"/>
+                  <path class="net-edge" d="M 530 80  C 620 80, 660 180, 750 180"/>
+                  <path class="net-edge" d="M 530 130 C 620 130, 660 180, 750 180"/>
+                  <path class="net-edge" d="M 530 180 C 620 180, 660 180, 750 180"/>
+                  <path class="net-edge" d="M 530 230 C 620 230, 660 180, 750 180"/>
+                  <path class="net-edge" d="M 530 280 C 620 280, 660 180, 750 180"/>
+                </g>
+                <!-- Nodes (each wrapped in a positioning group so the scale animation
+                     doesn't blow away the SVG translate attribute) -->
+                <g transform="translate(70, 180)">
+                  <g class="net-node" data-i="0">
+                    <rect x="-62" y="-22" width="124" height="44" rx="10"/>
+                    <text x="0" y="5" text-anchor="middle">🧭 Orchestrator</text>
+                  </g>
+                </g>
+                <g transform="translate(465, 80)">
+                  <g class="net-node spec" data-i="1">
+                    <rect x="-65" y="-18" width="130" height="36" rx="9"/>
+                    <text x="0" y="5" text-anchor="middle">📈 Sales</text>
+                  </g>
+                </g>
+                <g transform="translate(465, 130)">
+                  <g class="net-node spec" data-i="2">
+                    <rect x="-65" y="-18" width="130" height="36" rx="9"/>
+                    <text x="0" y="5" text-anchor="middle">📦 Inventory</text>
+                  </g>
+                </g>
+                <g transform="translate(465, 180)">
+                  <g class="net-node spec" data-i="3">
+                    <rect x="-65" y="-18" width="130" height="36" rx="9"/>
+                    <text x="0" y="5" text-anchor="middle">👥 Labor</text>
+                  </g>
+                </g>
+                <g transform="translate(465, 230)">
+                  <g class="net-node spec" data-i="4">
+                    <rect x="-65" y="-18" width="130" height="36" rx="9"/>
+                    <text x="0" y="5" text-anchor="middle">🎯 Promo</text>
+                  </g>
+                </g>
+                <g transform="translate(465, 280)">
+                  <g class="net-node spec" data-i="5">
+                    <rect x="-65" y="-18" width="130" height="36" rx="9"/>
+                    <text x="0" y="5" text-anchor="middle">💬 Reviews</text>
+                  </g>
+                </g>
+                <g transform="translate(810, 180)">
+                  <g class="net-node" data-i="6">
+                    <rect x="-62" y="-22" width="124" height="44" rx="10"/>
+                    <text x="0" y="5" text-anchor="middle">✨ Synthesizer</text>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <div class="sol-pillars">
+              <div class="pillar"><span class="num">1</span><span class="lbl">Multi-agent orchestration</span></div>
+              <div class="pillar"><span class="num">2</span><span class="lbl">Schema-validated MCP tools</span></div>
+              <div class="pillar"><span class="num">3</span><span class="lbl">Token-streaming responses</span></div>
+              <div class="pillar"><span class="num">4</span><span class="lbl">LangSmith trace audit</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 6 — Workflow -->
+        <div class="pslide" data-slide="6">
+          <div class="pslide-content slide-workflow">
+            <div class="wf-eyebrow">END-TO-END</div>
+            <h2 class="wf-title">One question. Five specialists. <em>Automatic.</em></h2>
+            <div class="wf-track">
+              <div class="wf-step" data-step="1"><div class="wf-num">1</div><div class="wf-lbl">Question Captured</div></div>
+              <div class="wf-step" data-step="2"><div class="wf-num">2</div><div class="wf-lbl">Orchestrator Routes</div></div>
+              <div class="wf-step" data-step="3"><div class="wf-num">3</div><div class="wf-lbl">Specialist Fan-Out</div></div>
+              <div class="wf-step" data-step="4"><div class="wf-num">4</div><div class="wf-lbl">Tool Discovery</div></div>
+              <div class="wf-step" data-step="5"><div class="wf-num">5</div><div class="wf-lbl">Autonomous Tool Call</div></div>
+              <div class="wf-step" data-step="6"><div class="wf-num">6</div><div class="wf-lbl">Specialist Briefings</div></div>
+              <div class="wf-step" data-step="7"><div class="wf-num">7</div><div class="wf-lbl">Streaming Synthesis</div></div>
+              <div class="wf-step" data-step="8"><div class="wf-num">8</div><div class="wf-lbl">Live Telemetry</div></div>
+              <div class="wf-step" data-step="9"><div class="wf-num">9</div><div class="wf-lbl">Actions + Trace</div></div>
+            </div>
+            <div class="wf-callout">
+              <div class="wf-callout-num">⚡</div>
+              <div>
+                <div class="wf-callout-title">What took 2+ hours is now one query</div>
+                <div class="wf-callout-desc">Each specialist discovers all 10 MCP tools at runtime via <code>bind_tools()</code> and autonomously selects which to call — no hardcoded assignments. 5 specialists run in parallel. Full run observable in LangSmith.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 7 — Architecture -->
+        <div class="pslide" data-slide="7">
+          <div class="pslide-content slide-arch">
+            <div class="arch-eyebrow">PRODUCTION-READY STACK</div>
+            <h2 class="arch-title">Standards all the way down</h2>
+            <div class="arch-cols">
+              <div class="arch-diagram">
+
+                <div class="arch-diag-node" data-tier="ui" style="--anim-delay:120ms">
+                  <span class="adn-icon">🎨</span>
+                  <span class="adn-body">
+                    <span class="adn-title">UI Layer</span>
+                    <span class="adn-sub">Glassmorphic · Dark / Light · WebSocket-streamed</span>
+                  </span>
+                  <span class="adn-badge">HTML · CSS · Vanilla JS</span>
+                </div>
+
+                <div class="arch-diag-conn" style="--anim-delay:290ms;--pulse-delay:0.5s;--conn-color:#7c5cff">
+                  <div class="adc-line"></div>
+                  <span class="adc-label">WebSocket · token stream</span>
+                  <div class="adc-pulse"></div>
+                </div>
+
+                <div class="arch-diag-node" data-tier="api" style="--anim-delay:390ms">
+                  <span class="adn-icon">🔌</span>
+                  <span class="adn-body">
+                    <span class="adn-title">FastAPI + WebSockets</span>
+                    <span class="adn-sub">Async Python · streaming event bus to UI</span>
+                  </span>
+                  <span class="adn-badge">Python 3.12 · Uvicorn</span>
+                </div>
+
+                <div class="arch-diag-conn" style="--anim-delay:550ms;--pulse-delay:1.1s;--conn-color:#818cf8">
+                  <div class="adc-line"></div>
+                  <span class="adc-label">graph events · asyncio.wait</span>
+                  <div class="adc-pulse"></div>
+                </div>
+
+                <div class="arch-diag-node" data-tier="agents" style="--anim-delay:630ms">
+                  <span class="adn-icon">🧠</span>
+                  <span class="adn-body">
+                    <span class="adn-title">LangGraph Orchestration</span>
+                    <span class="adn-sub">7 agents · parallel fan-out · 2 workflows</span>
+                  </span>
+                  <span class="adn-badge">LangGraph · Gemini</span>
+                </div>
+
+                <div class="arch-diag-conn arch-diag-conn--mcp" style="--anim-delay:770ms;--pulse-delay:1.7s;--conn-color:#f59e0b">
+                  <div class="adc-line"></div>
+                  <span class="adc-label">bind_tools() · autonomous tool_call()</span>
+                  <div class="adc-pulse"></div>
+                </div>
+
+                <div class="arch-diag-node" data-tier="mcp" style="--anim-delay:860ms">
+                  <span class="adn-icon">⚙</span>
+                  <span class="adn-body">
+                    <span class="adn-title">MCP Tool Server</span>
+                    <span class="adn-sub">10 typed tools · auto-discovered via <code>list_tools()</code></span>
+                  </span>
+                  <span class="adn-badge">FastMCP · JSON Schema</span>
+                </div>
+
+                <div class="arch-diag-conn" style="--anim-delay:1010ms;--pulse-delay:2.3s;--conn-color:#34d399">
+                  <div class="adc-line"></div>
+                  <span class="adc-label">SQL · 25 tables · joins</span>
+                  <div class="adc-pulse"></div>
+                </div>
+
+                <div class="arch-diag-node" data-tier="db" style="--anim-delay:1090ms">
+                  <span class="adn-icon">🗄</span>
+                  <span class="adn-body">
+                    <span class="adn-title">SQLite Data Layer</span>
+                    <span class="adn-sub">25 tables · 540 rows · auto-seeded on startup</span>
+                  </span>
+                  <span class="adn-badge">SQLite · seed.py</span>
+                </div>
+
+              </div>
+
+              <div class="arch-side">
+                <div class="arch-side-title">Want proof it's real?</div>
+                <div class="arch-side-desc">Click below to fire a live MCP tool call against the running server. The same call your agents make.</div>
+                <button class="arch-demo-btn" id="arch-demo-btn">▶ Fire a real MCP call</button>
+                <div class="arch-result" id="arch-result" hidden></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 8 — Demo handoff -->
+        <div class="pslide" data-slide="8">
+          <div class="pslide-content slide-handoff">
+            <div class="ho-eyebrow">YOU'VE SEEN THE PITCH</div>
+            <h2 class="ho-title">Now watch the agents <em>actually do it</em></h2>
+            <div class="ho-cards">
+              <button class="ho-card primary" id="handoff-store">
+                <div class="ho-card-icon">▶</div>
+                <div class="ho-card-title">Run the Morning Briefing</div>
+                <div class="ho-card-sub">5 specialists answer in parallel · streamed final brief</div>
+              </button>
+              <button class="ho-card" id="handoff-war">
+                <div class="ho-card-icon">🌪</div>
+                <div class="ho-card-title">Trigger the War Room</div>
+                <div class="ho-card-sub">Hurricane scenario · live MCP coordination</div>
+              </button>
+              <a class="ho-card" href="/markmap" target="_blank" rel="noopener">
+                <div class="ho-card-icon">🗺</div>
+                <div class="ho-card-title">Open the Markmap</div>
+                <div class="ho-card-sub">Visual walkthrough of every layer</div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer controls -->
+        <div class="pitch-controls">
+          <button class="pitch-nav prev" id="pitch-prev" aria-label="Previous slide">‹</button>
+          <div class="pitch-dots" id="pitch-dots">
+            <button class="pitch-dot active" data-go="1"></button>
+            <button class="pitch-dot" data-go="2"></button>
+            <button class="pitch-dot" data-go="3"></button>
+            <button class="pitch-dot" data-go="4"></button>
+            <button class="pitch-dot" data-go="5"></button>
+            <button class="pitch-dot" data-go="6"></button>
+            <button class="pitch-dot" data-go="7"></button>
+            <button class="pitch-dot" data-go="8"></button>
+          </div>
+          <div class="pitch-counter"><span id="pitch-counter">1</span> / 8</div>
+          <button class="pitch-nav next" id="pitch-next" aria-label="Next slide">›</button>
+          <div class="pitch-controls-sep"></div>
+          <button class="pitch-present-btn" id="pitch-present" aria-label="Present fullscreen" title="Present fullscreen">⛶</button>
+        </div>
+
+        <!-- Fullscreen edge arrows (only visible in present mode) -->
+        <button class="fs-arrow fs-arrow-prev" id="fs-prev" aria-label="Previous slide">‹</button>
+        <button class="fs-arrow fs-arrow-next" id="fs-next" aria-label="Next slide">›</button>
+        <button class="fs-exit-btn" id="fs-exit" aria-label="Exit presentation">✕ Exit</button>
+
+      </div>
+    </section>
+
+    <!-- ========== DASHBOARD ========== -->
+    <section class="panel active" id="panel-dashboard">
+      <div class="hero glass">
+        <div class="hero-text">
+          <div class="hero-eyebrow">GOOD MORNING · <span id="hero-date"></span></div>
+          <h1 class="hero-title" id="hero-greeting">Welcome back</h1>
+          <p class="hero-sub" id="hero-sub">Your AI agent network has surfaced <span id="hero-alert-count">0</span> items needing your attention.</p>
+        </div>
+        <div class="hero-actions">
+          <button class="btn-primary" id="btn-run-briefing">▶ Run Morning Briefing</button>
+          <button class="btn-ghost" data-goto="war-room">Open War Room</button>
+        </div>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi glass" data-kpi="revenue">
+          <div class="kpi-label">Revenue Today</div>
+          <div class="kpi-value" id="kpi-revenue">$0</div>
+          <div class="kpi-sub" id="kpi-revenue-sub">vs forecast</div>
+        </div>
+        <div class="kpi glass" data-kpi="variance">
+          <div class="kpi-label">Forecast Variance</div>
+          <div class="kpi-value" id="kpi-variance">0%</div>
+          <div class="kpi-sub">vs plan</div>
+        </div>
+        <div class="kpi glass" data-kpi="traffic">
+          <div class="kpi-label">Traffic</div>
+          <div class="kpi-value" id="kpi-traffic">0</div>
+          <div class="kpi-sub" id="kpi-traffic-sub">conversion</div>
+        </div>
+        <div class="kpi glass" data-kpi="basket">
+          <div class="kpi-label">Avg Basket</div>
+          <div class="kpi-value" id="kpi-basket">$0</div>
+          <div class="kpi-sub">across <span id="kpi-tx">0</span> tx</div>
+        </div>
+        <div class="kpi glass" data-kpi="stockouts">
+          <div class="kpi-label">Critical Stockouts</div>
+          <div class="kpi-value" id="kpi-stockouts">0</div>
+          <div class="kpi-sub">SKUs at zero</div>
+        </div>
+        <div class="kpi glass" data-kpi="labor">
+          <div class="kpi-label">Labor % Sales</div>
+          <div class="kpi-value" id="kpi-labor">0%</div>
+          <div class="kpi-sub" id="kpi-labor-sub">target</div>
+        </div>
+      </div>
+
+      <div class="dash-main">
+        <div class="dash-charts">
+          <div class="card glass">
+            <div class="card-head">
+              <h3>Hourly Sales · Today vs Forecast</h3>
+              <span class="badge" id="hourly-badge">Live</span>
+            </div>
+            <div class="chart-box"><canvas id="chart-hourly"></canvas></div>
+          </div>
+          <div class="card glass">
+            <div class="card-head"><h3>Category Performance</h3></div>
+            <div class="chart-box"><canvas id="chart-category"></canvas></div>
+          </div>
+        </div>
+
+        <div class="dash-side">
+          <div class="card glass">
+            <div class="card-head"><h3>Critical Alerts</h3><span class="badge red" id="alerts-count">0</span></div>
+            <div class="alerts-list" id="alerts-list"></div>
+          </div>
+          <div class="card glass">
+            <div class="card-head"><h3>Inventory Health</h3></div>
+            <div class="inventory-grid" id="inventory-grid"></div>
+          </div>
+          <div class="card glass">
+            <div class="card-head"><h3>Customer Voice · Last 24h</h3></div>
+            <div class="reviews" id="reviews-list"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== STORE MANAGER ========== -->
+    <section class="panel" id="panel-store-manager">
+      <div class="card glass sm-ask">
+        <div class="card-head">
+          <h3>Ask the Agent Network</h3>
+          <span class="badge">5 specialists + orchestrator</span>
+        </div>
+        <div class="sm-ask-row">
+          <div class="sm-suggestions" id="sm-suggestions"></div>
+          <div class="sm-input-wrap">
+            <textarea id="sm-input" placeholder="e.g. Why are dairy sales down today and what should I do?" rows="2"></textarea>
+            <button class="btn-primary" id="sm-submit">Run Agents</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sm-main">
+        <div class="card glass agent-flow-card">
+          <div class="card-head">
+            <h3>Agent Network · Live</h3>
+            <span class="badge" id="sm-flow-status">Idle</span>
+          </div>
+          <div class="agent-flow" id="sm-flow"></div>
+          <div class="agent-log" id="sm-log"></div>
+        </div>
+
+        <div class="sm-results">
+          <div class="card glass sm-empty" id="sm-empty">
+            <div class="empty-mark">✨</div>
+            <div class="empty-title">Results appear here</div>
+            <div class="empty-sub">Pick a question above and hit <strong>Run Agents</strong>. The synthesized briefing and each specialist's reasoning will stream in here in real time.</div>
+          </div>
+
+          <div class="card glass" id="sm-answer-card" hidden>
+            <div class="card-head"><h3>Synthesized Briefing</h3><span class="badge green">Ready</span></div>
+            <div class="markdown" id="sm-answer"></div>
+          </div>
+
+          <div class="card glass" id="sm-briefs-card" hidden>
+            <div class="card-head"><h3>Specialist Briefings</h3></div>
+            <div class="briefs" id="sm-briefs"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== WAR ROOM ========== -->
+    <section class="panel" id="panel-war-room">
+      <div class="card glass war-banner">
+        <div>
+          <div class="war-eyebrow">DISRUPTION RESPONSE NETWORK</div>
+          <h2>Inject an event. Watch agents coordinate the response.</h2>
+        </div>
+        <button class="btn-primary" id="wr-run" disabled>▶ Trigger Response</button>
+      </div>
+
+      <div class="card glass">
+        <div class="card-head"><h3>Scenario Library</h3><span class="badge" id="wr-scn-count">0 ready</span></div>
+        <div class="scenario-grid" id="wr-scenarios"></div>
+      </div>
+
+      <div class="wr-main">
+        <div class="card glass agent-flow-card">
+          <div class="card-head">
+            <h3>Response Network · Live</h3>
+            <span class="badge" id="wr-flow-status">Idle</span>
+          </div>
+          <div class="agent-flow" id="wr-flow"></div>
+          <div class="agent-log" id="wr-log"></div>
+        </div>
+
+        <div class="wr-output">
+          <div class="wr-output-inner">
+            <div class="card glass">
+              <div class="card-head"><h3>Commander Brief</h3><span class="badge" id="wr-brief-status">—</span></div>
+              <div class="markdown" id="wr-brief"></div>
+            </div>
+
+            <div class="wr-artifacts-stack" id="wr-artifacts" hidden>
+              <div class="card glass">
+                <div class="markdown" id="wr-supplier"></div>
+              </div>
+              <div class="card glass">
+                <div class="markdown" id="wr-rebalance"></div>
+              </div>
+              <div class="card glass">
+                <div class="markdown" id="wr-impact"></div>
+              </div>
+            </div>
+
+            <div class="card glass" id="wr-comms-card" hidden>
+              <div class="card-head"><h3>Drafted Communications</h3><span class="badge">Ready to send</span></div>
+              <div class="comms-grid" id="wr-comms"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== MCP CONSOLE ========== -->
+    <section class="panel" id="panel-mcp">
+      <div class="card glass mcp-banner">
+        <div class="mcp-banner-left">
+          <div class="mcp-eyebrow">MODEL CONTEXT PROTOCOL · TOOL SERVER</div>
+          <h2 class="mcp-title"><span id="mcp-server-name">rcg-retail-mcp</span> · <span id="mcp-server-version">v0.1.0</span></h2>
+          <div class="mcp-sub">A real MCP-compatible tool layer. Every specialist agent fetches its context exclusively through these typed, schema-validated tools. The MCP Live Monitor pops up automatically during agent runs.</div>
+        </div>
+        <div class="mcp-stats">
+          <div class="mcp-stat"><div class="mcp-stat-num" id="mcp-tool-count">0</div><div class="mcp-stat-label">Tools</div></div>
+          <div class="mcp-stat"><div class="mcp-stat-num" id="mcp-call-count">0</div><div class="mcp-stat-label">Calls</div></div>
+          <div class="mcp-stat"><div class="mcp-stat-num" id="mcp-avg-latency">—</div><div class="mcp-stat-label">Avg latency</div></div>
+          <div class="mcp-stat"><div class="mcp-stat-num" id="mcp-success-rate">—</div><div class="mcp-stat-label">Success</div></div>
+        </div>
+      </div>
+
+      <div class="mcp-main">
+        <div class="card glass">
+          <div class="card-head">
+            <h3>Tool Catalog</h3>
+            <span class="badge" id="mcp-cat-count">0 categories</span>
+          </div>
+          <div class="mcp-tools-list" id="mcp-tools-list"></div>
+        </div>
+
+        <div class="mcp-side">
+          <div class="card glass">
+            <div class="card-head"><h3>Architecture</h3><span class="badge">data flow</span></div>
+            <div class="mcp-arch">
+              <div class="arch-stage">
+                <div class="arch-node arch-node-user">👤 Manager Question</div>
+              </div>
+              <div class="arch-arrow">↓</div>
+              <div class="arch-stage">
+                <div class="arch-node arch-node-orch">🧭 Orchestrator</div>
+              </div>
+              <div class="arch-arrow">↓ fan-out</div>
+              <div class="arch-stage arch-fanout">
+                <div class="arch-node arch-node-spec">📈 Sales</div>
+                <div class="arch-node arch-node-spec">📦 Inv</div>
+                <div class="arch-node arch-node-spec">👥 Labor</div>
+                <div class="arch-node arch-node-spec">🎯 Promo</div>
+                <div class="arch-node arch-node-spec">💬 Reviews</div>
+              </div>
+              <div class="arch-arrow arch-arrow-mcp">↓ MCP tool calls (typed JSON-RPC)</div>
+              <div class="arch-stage">
+                <div class="arch-node arch-node-mcp">⚙ MCP Tool Server · <span id="arch-tool-count">10</span> tools</div>
+              </div>
+              <div class="arch-arrow">↓</div>
+              <div class="arch-stage">
+                <div class="arch-node arch-node-db">🗄 SQLite (rcg.db)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card glass">
+            <div class="card-head">
+              <h3>Session History</h3>
+              <span class="badge" id="mcp-feed-status">Idle</span>
+            </div>
+            <div class="mcp-feed" id="mcp-feed">
+              <div class="mcp-feed-empty">No tool calls yet. Run an agent network from <strong>Store Manager</strong> or <strong>War Room</strong> to populate this history.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== ANALYTICS ========== -->
+    <section class="panel" id="panel-analytics">
+      <div class="db-strip glass" id="db-strip">
+        <div class="db-strip-meta">
+          <div class="db-strip-eyebrow">DATA LAYER</div>
+          <div class="db-strip-title">SQLite · <span id="db-tables">0</span> tables · <span id="db-rows">0</span> rows</div>
+          <div class="db-strip-sub" id="db-path">data/rcg.db</div>
+        </div>
+        <div class="db-strip-tables" id="db-tables-list"></div>
+      </div>
+
+      <div class="card glass">
+        <div class="card-head"><h3>Revenue · 90 Days</h3><span class="badge">trend</span></div>
+        <div class="chart-box"><canvas id="chart-rev-90"></canvas></div>
+      </div>
+
+      <div class="analytics-row">
+        <div class="card glass">
+          <div class="card-head"><h3>Category Trajectory · 30d</h3></div>
+          <div class="chart-box"><canvas id="chart-cat-30"></canvas></div>
+        </div>
+        <div class="card glass">
+          <div class="card-head"><h3>Agent Activity · 30d</h3></div>
+          <div class="chart-box"><canvas id="chart-agent-30"></canvas></div>
+        </div>
+      </div>
+
+      <div class="analytics-row">
+        <div class="card glass">
+          <div class="card-head"><h3>Cost & Latency by Agent</h3></div>
+          <div class="chart-box"><canvas id="chart-agent-bd"></canvas></div>
+        </div>
+        <div class="card glass">
+          <div class="card-head"><h3>Disruptions Handled · 90d</h3></div>
+          <div class="disruption-list" id="disruption-list"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MCP Live Monitor — floats during agent runs, shows live tool calls -->
+  <div class="mcp-monitor" id="mcp-monitor" hidden>
+    <div class="mcp-monitor-head">
+      <div class="mcp-monitor-title">
+        <span class="mcp-pulse"></span>
+        MCP · Live Tool Activity
+        <span class="mcp-monitor-count" id="mcp-monitor-count">0</span>
+      </div>
+      <div class="mcp-monitor-actions">
+        <button class="mcp-monitor-btn" id="mcp-monitor-expand" title="Open full MCP Tools tab">↗</button>
+        <button class="mcp-monitor-btn" id="mcp-monitor-close" title="Close">×</button>
+      </div>
+    </div>
+    <div class="mcp-monitor-body" id="mcp-monitor-body">
+      <div class="mcp-monitor-empty">Waiting for tool calls…</div>
+    </div>
+  </div>
+
+  <!-- Behind-the-scenes overlay -->
+  <div class="ai-overlay" id="ai-overlay" hidden>
+    <div class="ai-overlay-bg"></div>
+    <div class="ai-overlay-content">
+      <div class="ai-rings">
+        <div class="ring ring-1"></div>
+        <div class="ring ring-2"></div>
+        <div class="ring ring-3"></div>
+        <div class="ring-core"></div>
+      </div>
+      <div class="ai-overlay-text" id="ai-overlay-text">Agents are thinking…</div>
+      <div class="ai-overlay-sub" id="ai-overlay-sub">Routing your request to the network</div>
+    </div>
+  </div>
+
+  <script src="/static/js/theme.js"></script>
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/telemetry.js"></script>
+  <script src="/static/js/agent-viz.js"></script>
+  <script src="/static/js/charts.js"></script>
+  <script src="/static/js/dashboard.js"></script>
+  <script src="/static/js/store-manager.js"></script>
+  <script src="/static/js/war-room.js"></script>
+  <script src="/static/js/mcp.js"></script>
+  <script src="/static/js/analytics.js"></script>
+  <script src="/static/js/annotate.js"></script>
+  <script src="/static/js/pitch.js"></script>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

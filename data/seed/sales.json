@@ -1,0 +1,59 @@
+{
+  "store_id": "ST-014",
+  "as_of": "2026-05-06T11:00:00Z",
+  "today": {
+    "revenue_to_date": 184320,
+    "forecast_to_date": 201500,
+    "variance_pct": -8.5,
+    "transactions": 2814,
+    "avg_basket": 65.50,
+    "traffic": 3940,
+    "conversion_pct": 71.4
+  },
+  "yesterday": {
+    "revenue": 412800,
+    "forecast": 420000,
+    "transactions": 6210,
+    "avg_basket": 66.47
+  },
+  "hourly": [
+    {"hour": "06:00", "revenue": 8400, "forecast": 9200, "transactions": 142},
+    {"hour": "07:00", "revenue": 14200, "forecast": 15100, "transactions": 224},
+    {"hour": "08:00", "revenue": 22100, "forecast": 23800, "transactions": 341},
+    {"hour": "09:00", "revenue": 28400, "forecast": 30200, "transactions": 412},
+    {"hour": "10:00", "revenue": 31200, "forecast": 33800, "transactions": 468},
+    {"hour": "11:00", "revenue": 33600, "forecast": 36400, "transactions": 487},
+    {"hour": "12:00", "revenue": 0, "forecast": 38900, "transactions": 0},
+    {"hour": "13:00", "revenue": 0, "forecast": 36200, "transactions": 0},
+    {"hour": "14:00", "revenue": 0, "forecast": 31400, "transactions": 0},
+    {"hour": "15:00", "revenue": 0, "forecast": 33600, "transactions": 0},
+    {"hour": "16:00", "revenue": 0, "forecast": 38100, "transactions": 0},
+    {"hour": "17:00", "revenue": 0, "forecast": 41800, "transactions": 0},
+    {"hour": "18:00", "revenue": 0, "forecast": 39200, "transactions": 0},
+    {"hour": "19:00", "revenue": 0, "forecast": 32400, "transactions": 0},
+    {"hour": "20:00", "revenue": 0, "forecast": 24100, "transactions": 0},
+    {"hour": "21:00", "revenue": 0, "forecast": 14800, "transactions": 0}
+  ],
+  "by_category": [
+    {"category": "Dairy", "revenue": 12400, "forecast": 18200, "variance_pct": -31.9, "trend": "down"},
+    {"category": "Bakery", "revenue": 9100, "forecast": 9400, "variance_pct": -3.2, "trend": "stable"},
+    {"category": "Produce", "revenue": 22800, "forecast": 24100, "variance_pct": -5.4, "trend": "stable"},
+    {"category": "Frozen", "revenue": 14600, "forecast": 14200, "variance_pct": 2.8, "trend": "up"},
+    {"category": "Beverages", "revenue": 28900, "forecast": 26800, "variance_pct": 7.8, "trend": "up"},
+    {"category": "Snacks", "revenue": 19200, "forecast": 18100, "variance_pct": 6.1, "trend": "up"},
+    {"category": "Household", "revenue": 18100, "forecast": 19400, "variance_pct": -6.7, "trend": "stable"},
+    {"category": "Personal Care", "revenue": 11400, "forecast": 12000, "variance_pct": -5.0, "trend": "stable"},
+    {"category": "Apparel", "revenue": 9800, "forecast": 11200, "variance_pct": -12.5, "trend": "down"},
+    {"category": "Electronics", "revenue": 38020, "forecast": 48100, "variance_pct": -21.0, "trend": "down"}
+  ],
+  "top_movers_up": [
+    {"sku": "BEV-7102", "name": "Celsius Variety 12pk", "delta_pct": 38.2},
+    {"sku": "SNK-3340", "name": "Doritos Cool Ranch Party Size", "delta_pct": 27.4},
+    {"sku": "FRZ-4011", "name": "Talenti Gelato 16oz", "delta_pct": 19.8}
+  ],
+  "top_movers_down": [
+    {"sku": "DAI-2041", "name": "Chobani Greek Yogurt 32oz", "delta_pct": -100.0},
+    {"sku": "ELE-9920", "name": "Apple AirPods Pro Gen 3", "delta_pct": -42.1},
+    {"sku": "APP-6610", "name": "Carhartt Hoodie Heather", "delta_pct": -28.4}
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "store_id": "ST-014",
+  "as_of": "2026-05-06T07:30:00Z",
+  "today": {
+    "scheduled_hours": 412,
+    "actual_hours_to_date": 184,
+    "callouts": 3,
+    "open_shifts": 2,
+    "overtime_hours": 14,
+    "labor_cost_pct_of_sales": 9.8,
+    "target_pct": 8.5
+  },
+  "departments": [
+    {"dept": "Front End", "scheduled": 88, "filled": 84, "gap": 4, "status": "watch"},
+    {"dept": "Grocery", "scheduled": 72, "filled": 70, "gap": 2, "status": "ok"},
+    {"dept": "Dairy & Frozen", "scheduled": 24, "filled": 18, "gap": 6, "status": "critical"},
+    {"dept": "Produce", "scheduled": 28, "filled": 28, "gap": 0, "status": "ok"},
+    {"dept": "Bakery", "scheduled": 18, "filled": 18, "gap": 0, "status": "ok"},
+    {"dept": "Pharmacy", "scheduled": 32, "filled": 30, "gap": 2, "status": "ok"},
+    {"dept": "Apparel", "scheduled": 36, "filled": 36, "gap": 0, "status": "ok"},
+    {"dept": "Electronics", "scheduled": 22, "filled": 22, "gap": 0, "status": "ok"},
+    {"dept": "Stocking (overnight)", "scheduled": 64, "filled": 58, "gap": 6, "status": "watch"},
+    {"dept": "Receiving", "scheduled": 28, "filled": 28, "gap": 0, "status": "ok"}
+  ],
+  "callout_details": [
+    {"associate": "J. Patel", "dept": "Dairy & Frozen", "shift": "06:00–14:30", "reason": "Sick"},
+    {"associate": "M. Hernandez", "dept": "Dairy & Frozen", "shift": "08:00–16:30", "reason": "Family emergency"},
+    {"associate": "R. Singh", "dept": "Stocking", "shift": "22:00–06:30", "reason": "No call/no show"}
+  ]
+}

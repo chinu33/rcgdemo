@@ -1,0 +1,14 @@
+{
+  "store_id": "ST-014",
+  "active": [
+    {"id": "PRM-9012", "name": "Mother's Day Floral 25% Off", "category": "Floral", "start": "2026-05-04", "end": "2026-05-10", "lift_pct": 42.1, "redemptions": 1840, "status": "outperforming"},
+    {"id": "PRM-9027", "name": "Beverages Buy 2 Get 1", "category": "Beverages", "start": "2026-05-01", "end": "2026-05-14", "lift_pct": 18.6, "redemptions": 3210, "status": "on_target"},
+    {"id": "PRM-9034", "name": "Apparel Spring Clearance", "category": "Apparel", "start": "2026-04-20", "end": "2026-05-12", "lift_pct": -4.2, "redemptions": 412, "status": "underperforming"},
+    {"id": "PRM-9041", "name": "Electronics Memorial Day Preview", "category": "Electronics", "start": "2026-05-05", "end": "2026-05-25", "lift_pct": 8.4, "redemptions": 184, "status": "ramping"}
+  ],
+  "competitor_intel": [
+    {"competitor": "Kroger Streeterville", "distance_mi": 1.2, "promo": "Dairy 30% off Yogurt brands incl. Chobani", "started": "2026-04-30", "estimated_traffic_pull": "high"},
+    {"competitor": "Target Old Orchard", "distance_mi": 2.8, "promo": "Apparel BOGO 50%", "started": "2026-04-25", "estimated_traffic_pull": "medium"},
+    {"competitor": "Costco Glenview", "distance_mi": 3.4, "promo": "Electronics member savings", "started": "2026-05-01", "estimated_traffic_pull": "medium"}
+  ]
+}

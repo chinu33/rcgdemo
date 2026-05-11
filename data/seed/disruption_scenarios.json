@@ -1,0 +1,48 @@
+{
+  "scenarios": [
+    {
+      "id": "SCN-HURRICANE",
+      "title": "Hurricane Ingrid — Category 3 — Florida landfall in 48h",
+      "type": "Weather",
+      "severity": "high",
+      "affected_regions": ["FL", "GA", "SC"],
+      "affected_stores": ["ST-031", "ST-027", "ST-061"],
+      "details": "NHC projects landfall near Tampa Bay 2026-05-08. Storm surge 8–12 ft. Mandatory evacuations announced for 4 coastal counties. Power outages expected up to 5 days inland.",
+      "expected_skus_at_risk": ["Bottled Water", "Batteries", "Generators", "Plywood", "Canned Goods", "Diapers", "Pet Food"],
+      "demand_surge_categories": ["Beverages", "Household", "Hardware"]
+    },
+    {
+      "id": "SCN-PORT",
+      "title": "Port of Long Beach — 5-day labor stoppage announced",
+      "type": "Logistics",
+      "severity": "high",
+      "affected_regions": ["West Coast"],
+      "affected_stores": ["ST-042", "ST-073"],
+      "details": "ILWU local has filed a 5-day work stoppage starting 2026-05-09. Approximately 38 vessels currently anchored. 2,400 RCG containers in transit. Expected $4.2M backlog impact across network.",
+      "expected_skus_at_risk": ["Electronics", "Apparel", "Toys", "Seasonal Goods"],
+      "demand_surge_categories": []
+    },
+    {
+      "id": "SCN-SUPPLIER",
+      "title": "Prairie Farms Dairy — Plant contamination shutdown",
+      "type": "Supplier",
+      "severity": "critical",
+      "affected_regions": ["Midwest"],
+      "affected_stores": ["ST-014", "ST-058"],
+      "details": "Prairie Farms reported listeria detection at Dubuque facility. FDA mandated 7-day production halt starting 2026-05-05. Affects ~28% of our Midwest dairy supply.",
+      "expected_skus_at_risk": ["Milk", "Yogurt", "Cottage Cheese", "Sour Cream"],
+      "demand_surge_categories": []
+    },
+    {
+      "id": "SCN-CYBER",
+      "title": "POS vendor security incident — read-only mode advised",
+      "type": "Cyber",
+      "severity": "medium",
+      "affected_regions": ["National"],
+      "affected_stores": ["ALL"],
+      "details": "Vendor advisory: confirmed unauthorized access to POS update server. No customer data exposed. Recommended: pause auto-updates, run integrity scan, communicate to associates.",
+      "expected_skus_at_risk": [],
+      "demand_surge_categories": []
+    }
+  ]
+}

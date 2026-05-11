@@ -1,0 +1,12 @@
+{
+  "suppliers": [
+    {"id": "SUP-DAIRY-01", "name": "Prairie Farms Distribution", "categories": ["Dairy"], "regions": ["Midwest"], "lead_time_days": 1, "reliability_pct": 96.4, "alt_suppliers": ["SUP-DAIRY-02", "SUP-DAIRY-04"], "risk": "low"},
+    {"id": "SUP-DAIRY-02", "name": "Dean Foods Logistics", "categories": ["Dairy"], "regions": ["Midwest", "South"], "lead_time_days": 2, "reliability_pct": 92.1, "alt_suppliers": ["SUP-DAIRY-01"], "risk": "medium"},
+    {"id": "SUP-DAIRY-04", "name": "Organic Valley Co-op", "categories": ["Dairy"], "regions": ["National"], "lead_time_days": 3, "reliability_pct": 94.8, "alt_suppliers": ["SUP-DAIRY-01"], "risk": "low"},
+    {"id": "SUP-PROD-11", "name": "Driscoll's Direct", "categories": ["Produce"], "regions": ["West", "National"], "lead_time_days": 2, "reliability_pct": 91.2, "alt_suppliers": ["SUP-PROD-14"], "risk": "medium"},
+    {"id": "SUP-ELEC-22", "name": "Apex Electronics Asia", "categories": ["Electronics"], "regions": ["West Coast Ports"], "lead_time_days": 18, "reliability_pct": 88.4, "alt_suppliers": ["SUP-ELEC-25"], "risk": "high", "current_alert": "Port of Long Beach congestion +6 days"},
+    {"id": "SUP-ELEC-25", "name": "Nearshore Electronics MX", "categories": ["Electronics"], "regions": ["Mexico"], "lead_time_days": 6, "reliability_pct": 89.7, "alt_suppliers": ["SUP-ELEC-22"], "risk": "medium"},
+    {"id": "SUP-APP-30", "name": "Carhartt Direct", "categories": ["Apparel"], "regions": ["National"], "lead_time_days": 5, "reliability_pct": 95.1, "alt_suppliers": [], "risk": "low"},
+    {"id": "SUP-BEV-44", "name": "Coca-Cola Bottling Midwest", "categories": ["Beverages"], "regions": ["Midwest"], "lead_time_days": 1, "reliability_pct": 98.2, "alt_suppliers": [], "risk": "low"}
+  ]
+}

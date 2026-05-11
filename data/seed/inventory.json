@@ -1,0 +1,23 @@
+{
+  "as_of": "2026-05-06T07:30:00Z",
+  "store_id": "ST-014",
+  "categories": [
+    {"category": "Dairy", "on_hand_units": 4820, "days_of_supply": 1.4, "stockout_skus": 7, "trend": "down", "alert": "critical"},
+    {"category": "Bakery", "on_hand_units": 2180, "days_of_supply": 2.1, "stockout_skus": 1, "trend": "stable", "alert": "ok"},
+    {"category": "Produce", "on_hand_units": 9640, "days_of_supply": 1.8, "stockout_skus": 3, "trend": "down", "alert": "watch"},
+    {"category": "Frozen", "on_hand_units": 12300, "days_of_supply": 6.4, "stockout_skus": 0, "trend": "stable", "alert": "ok"},
+    {"category": "Beverages", "on_hand_units": 18900, "days_of_supply": 4.7, "stockout_skus": 2, "trend": "up", "alert": "ok"},
+    {"category": "Snacks", "on_hand_units": 14200, "days_of_supply": 3.9, "stockout_skus": 1, "trend": "up", "alert": "ok"},
+    {"category": "Household", "on_hand_units": 22100, "days_of_supply": 8.2, "stockout_skus": 0, "trend": "stable", "alert": "ok"},
+    {"category": "Personal Care", "on_hand_units": 9870, "days_of_supply": 7.1, "stockout_skus": 0, "trend": "stable", "alert": "ok"},
+    {"category": "Apparel", "on_hand_units": 6400, "days_of_supply": 14.3, "stockout_skus": 0, "trend": "down", "alert": "watch"},
+    {"category": "Electronics", "on_hand_units": 1820, "days_of_supply": 11.6, "stockout_skus": 0, "trend": "stable", "alert": "ok"}
+  ],
+  "critical_skus": [
+    {"sku": "DAI-2041", "name": "Chobani Greek Yogurt 32oz", "category": "Dairy", "on_hand": 0, "weekly_velocity": 412, "last_delivery": "2026-04-29", "next_delivery": "2026-05-07", "lost_sales_est": 1840},
+    {"sku": "DAI-2107", "name": "Horizon Organic Whole Milk 1gal", "category": "Dairy", "on_hand": 6, "weekly_velocity": 287, "last_delivery": "2026-05-02", "next_delivery": "2026-05-06", "lost_sales_est": 740},
+    {"sku": "DAI-2309", "name": "Fairlife 2% Milk 52oz", "category": "Dairy", "on_hand": 0, "weekly_velocity": 198, "last_delivery": "2026-04-30", "next_delivery": "2026-05-07", "lost_sales_est": 920},
+    {"sku": "PRO-5012", "name": "Driscoll's Strawberries 1lb", "category": "Produce", "on_hand": 12, "weekly_velocity": 340, "last_delivery": "2026-05-05", "next_delivery": "2026-05-07", "lost_sales_est": 410},
+    {"sku": "BEV-7188", "name": "Liquid Death Sparkling 12pk", "category": "Beverages", "on_hand": 4, "weekly_velocity": 89, "last_delivery": "2026-05-01", "next_delivery": "2026-05-08", "lost_sales_est": 180}
+  ]
+}

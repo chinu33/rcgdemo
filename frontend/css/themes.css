@@ -1,0 +1,131 @@
+/* ============================================================
+   Theme variables — dark (default) and light
+   ============================================================ */
+
+:root, [data-theme="dark"] {
+  --bg-base: #07091a;
+  --bg-elev: rgba(18, 22, 48, 0.55);
+  --bg-elev-strong: rgba(24, 28, 60, 0.78);
+  --bg-input: rgba(12, 16, 36, 0.6);
+
+  --glass-bg: rgba(22, 26, 56, 0.42);
+  --glass-bg-strong: rgba(28, 32, 70, 0.58);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-strong: rgba(255, 255, 255, 0.14);
+  --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  --text-primary: #ecf0ff;
+  --text-secondary: #b9c0e0;
+  --text-muted: #7884b0;
+
+  --accent-1: #7c5cff;
+  --accent-2: #22d3ee;
+  --accent-3: #ec4899;
+  --accent-warm: #f59e0b;
+  --accent-good: #34d399;
+  --accent-bad: #ef4444;
+
+  --aurora-1: #5b3df5;
+  --aurora-2: #00b8d9;
+  --aurora-3: #d946ef;
+
+  --grid-line: rgba(124, 92, 255, 0.08);
+  --scrollbar: rgba(255, 255, 255, 0.12);
+  --scrollbar-hover: rgba(255, 255, 255, 0.22);
+
+  --chart-grid: rgba(255, 255, 255, 0.06);
+  --chart-text: #b9c0e0;
+
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --bg-base: #f1f4fb;
+  --bg-elev: rgba(255, 255, 255, 0.7);
+  --bg-elev-strong: rgba(255, 255, 255, 0.92);
+  --bg-input: rgba(255, 255, 255, 0.85);
+
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-bg-strong: rgba(255, 255, 255, 0.78);
+  --glass-border: rgba(255, 255, 255, 0.7);
+  --glass-border-strong: rgba(124, 92, 255, 0.18);
+  --glass-shadow: 0 10px 32px rgba(58, 70, 130, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+  --text-primary: #161a35;
+  --text-secondary: #4a5180;
+  --text-muted: #8089b0;
+
+  --accent-1: #6841ff;
+  --accent-2: #0891b2;
+  --accent-3: #db2777;
+  --accent-warm: #d97706;
+  --accent-good: #059669;
+  --accent-bad: #dc2626;
+
+  --aurora-1: #a584ff;
+  --aurora-2: #5cdfff;
+  --aurora-3: #ff8ad4;
+
+  --grid-line: rgba(104, 65, 255, 0.06);
+  --scrollbar: rgba(0, 0, 0, 0.12);
+  --scrollbar-hover: rgba(0, 0, 0, 0.22);
+
+  --chart-grid: rgba(0, 0, 0, 0.06);
+  --chart-text: #4a5180;
+
+  color-scheme: light;
+}
+
+/* Animated background */
+.bg-aurora {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.55;
+  animation: blob-drift 22s ease-in-out infinite;
+}
+.blob-1 {
+  width: 540px; height: 540px;
+  background: var(--aurora-1);
+  top: -180px; left: -120px;
+}
+.blob-2 {
+  width: 460px; height: 460px;
+  background: var(--aurora-2);
+  bottom: -160px; right: -120px;
+  animation-delay: -8s;
+}
+.blob-3 {
+  width: 380px; height: 380px;
+  background: var(--aurora-3);
+  top: 40%; left: 55%;
+  animation-delay: -14s;
+  opacity: 0.35;
+}
+
+[data-theme="light"] .aurora-blob { opacity: 0.35; }
+
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at 50% 30%, black, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black, transparent 75%);
+}
+
+@keyframes blob-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(80px, -40px) scale(1.1); }
+  66% { transform: translate(-60px, 40px) scale(0.95); }
+}
